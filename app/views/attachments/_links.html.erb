@@ -10,31 +10,22 @@
 <% for attachment in attachments %>
 <tr>
   <td>
+    <%= link_to_attachment attachment, :class => 'icon icon-attachment' -%>
+  </td>
+  <td class="alignrigth">
     <% if attachment.is_image? %>
-      <%= link_to_attachment attachment, :class => 'icon icon-attachment lightbox_preview', :download => true -%>
-      </td>
-      <td class="alignrigth">
       <%= link_to l(:button_view),
                   { :controller => 'attachments', :action => 'download',
                     :id => attachment, :filename => attachment.filename },
                   :class => 'icon-only icon-magnifier lightbox_preview ' + attachment.filename.split('.').last.downcase,
                   :rel => 'attachments', :title => "#{attachment.filename}#{ (' - ' + attachment.description) unless attachment.description.blank? }" %>
-
     <% elsif attachment.is_pdf? %>
-      <%= link_to_attachment attachment, :class => 'icon icon-attachment lightbox_preview pdf', :download => true -%>
-      </td>
-      <td class="alignrigth">
       <%= link_to l(:button_view),
                   { :controller => 'attachments', :action => 'download_inline',
                     :id => attachment, :filename => attachment.filename },
                   :class => 'icon-only icon-magnifier lightbox_preview pdf',
                   :rel => 'attachments', :title => "#{attachment.filename}#{ (' - ' + attachment.description) unless attachment.description.blank? }",
                   :data  => {:fancybox_type => 'iframe'} %>
-
-    <% else %>
-      <%= link_to_attachment attachment, :class => 'icon icon-attachment' -%>
-      </td>
-      <td class="alignrigth">
     <% end %>
     <%= link_to_attachment attachment, class: 'icon-only icon-download', title: l(:button_download), download: true -%>
   </td>
